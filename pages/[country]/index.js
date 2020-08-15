@@ -1,23 +1,38 @@
 // import {useEffect} from 'react';
 import axios from 'axios';
+import Thumbnail from '../../componants/Thumbnail';
+import './style.scss';
 
-const Home = (props) => {
-  // console.log(props.shows)
-  // useEffect(() => {
-  //   axios.get('http://api.tvmaze.com/schedule?country=US&date=2014-12-01')
-  //     .then(response => console.log(response.data))
-  // }, [])
-
+const Home = ({ shows, country }) => {
+  
+  const rendershows = () => {
+    return shows.map((showItems,index) => {
+      const { show } = showItems;
+      return (
+      <li key={index}>
+        <Thumbnail 
+        imageUrl = { (show.image && show.image.medium || undefined) } 
+        caption = {show.name}
+        href = "/[country]/[showId]"
+        as = {`/${country}/${show.id}`}
+        />
+      </li>
+      )
+    })
+  }
+  
   return (
-    <h1>CountryTest</h1>
+  <ul className="tvshows">{ rendershows() }</ul>
   )
 }
 
-  Home.getInitialProps = async () => {
-    const response = await axios.get('http://api.tvmaze.com/schedule?country=US&date=2014-12-01')
-    // console.log(response.data)
+  Home.getInitialProps = async context => {
+    const country = context.query.country || us;
+    const response = await axios.get(
+      `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`)
     return {
-      shows: response.data
+      shows: response.data,
+      country
     }
   }
 

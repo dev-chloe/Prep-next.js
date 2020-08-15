@@ -1,0 +1,12 @@
+
+.thumbnail {
+  max-width: 210px;
+  padding: 0 10px;
+  &_img {
+    width: 100%;
+  }
+  &_caption {
+    text-align: center;
+    padding: 10px 0;
+  }
+}
