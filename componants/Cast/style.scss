@@ -1,8 +1,8 @@
 .cast_list {
   display: flex;
-  flex-wrap: wrap;
   list-style: none;
-  li {
-    margin: 0 auto;
-  }
+  padding: unset;
+  align-items: flex-start;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
 }

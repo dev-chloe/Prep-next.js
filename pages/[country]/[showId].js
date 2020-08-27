@@ -16,7 +16,7 @@ const ShowDetails = ({ show }) => {
       <h1>{name}</h1>
       {parser(summary)}
 
-      <Cast cast={_embedded.cast}/>
+      { _embedded.cast.length > 0 && <Cast cast={_embedded.cast}/>}
     </div>
   )
 }
