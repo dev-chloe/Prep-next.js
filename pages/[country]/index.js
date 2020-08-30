@@ -4,7 +4,6 @@ import Thumbnail from '../../componants/Thumbnail';
 import './style.scss';
 
 const Home = ({ shows, country }) => {
-  
   const rendershows = () => {
     return shows.map((showItems,index) => {
       const { show } = showItems;
@@ -22,7 +21,7 @@ const Home = ({ shows, country }) => {
   }
   
   return (
-  <ul className="tvshows">{ rendershows() }</ul>
+   <ul className="tvshows">{ rendershows() }</ul>
   )
 }
 
