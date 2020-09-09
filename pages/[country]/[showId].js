@@ -2,9 +2,15 @@ import './style.scss';
 import axios from 'axios';
 import parser from 'html-react-parser';
 import Cast from '../../componants/Cast';
+import Error from 'next/error';
+import CustomError from '../_error';
 
-const ShowDetails = ({ show }) => {
+const ShowDetails = ({ show = {}, statusCode }) => {
   const { name, image, summary, _embedded } = show;
+
+  if(statusCode) {
+    return <CustomError statusCode = {statusCode} title="go back"/>
+  }
 
   return (
     <div className="show_details">
@@ -22,10 +28,17 @@ const ShowDetails = ({ show }) => {
 }
 
 // 구버전
-// ShowDetails.getInitialProps = async () => {
-//   const response = await  axios.get('http://api.tvmaze.com/shows/1?embed=cast');
-//   return {
-//     show: response.data
+// ShowDetails.getInitialProps = async ({ query }) => {
+//   const { showId } = query;
+//   try {
+//     const response = await  axios.get(`http://api.tvmaze.com/shows/${showId}?embed=cast`);
+//     return {
+//       show: response.data
+//     }
+//   } catch (error) {
+//     return {
+//       statusCode: error.response ? error.response.status : 500
+//     }
 //   }
 // }
 
@@ -46,8 +59,11 @@ export const getServerSideProps = async ({ query }) => {
   } catch (error) {
     return {
       props: {
-        error: error.error,
-      },
+        statusCode: error.response ? error.response.status : 500
+      }
+      // props: {
+      //   error: error.error,
+      // },
     };
   }
 };
