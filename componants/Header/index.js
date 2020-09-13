@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import cookies from 'nookies';
 
 const countries =  [{
   label:'us',
@@ -25,6 +26,13 @@ const Header = () => {
     return <option key={country.label} value={country.label}>{country.name}</option>
     })
   }
+
+  useEffect(() => {
+    cookies.set(null, 'defaultCountry', selectedCountry, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/'
+    } )
+  }, [selectedCountry])
 
   return (
     <div className="header">
