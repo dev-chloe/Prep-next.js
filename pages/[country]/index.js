@@ -2,8 +2,9 @@
 import Error from 'next/error';
 import axios from 'axios';
 import cookies from 'nookies';
-import Thumbnail from '../../componants/Thumbnail';
+
 import './style.scss';
+import Thumbnail from '../../componants/Thumbnail';
 
 const Home = ({ shows, country, statusCode }) => {
 
